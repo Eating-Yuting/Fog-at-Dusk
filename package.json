@@ -1,0 +1,12 @@
+{
+  "name": "fog-at-dusk",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "node check.mjs && node check-poster.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
+}
