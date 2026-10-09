@@ -4,6 +4,16 @@ A browser-based glass experience: an initially clear view, localized breath mist
 
 ![Fog at Dusk: local mist and fingertip traces](images/experience.png)
 
+## Play online / 在线试玩
+
+**[Open Fog at Dusk →](https://eating-yuting.github.io/Fog-at-Dusk/)**
+
+Use a recent desktop Chrome, press **Enable camera**, and allow camera access. The first visit downloads the bundled tracking models; give them time to load. You can also use the mouse without a camera. No installation or API key is needed.
+
+Camera processing stays in your browser. Postcards are saved in this browser on this website; collections from a localhost address do not transfer automatically. Download PNG/JPG copies to keep them elsewhere.
+
+中文：点击上方链接即可试玩；建议使用电脑 Chrome，允许摄像头后张嘴起雾、伸食指擦写。首次需等待模型加载，也可用鼠标。在线与本地收藏分开保存。
+
 ## Run locally / 本地打开
 
 Requirements: Python 3.9+ and a recent desktop Google Chrome with WebGL. No Node.js, package installation or AI account is needed to play. Unzip the project, open its folder in VS Code, then open Terminal → New Terminal. From the project root:
@@ -58,7 +68,7 @@ Both artwork pages explicitly describe their media as public domain [4–5]. Loc
 
 `check-poster.mjs` additionally checks wet-edge beads, poster freezing, the 200-character limit, downloads, collection persistence and mobile layout. `check.mjs` contains checks for cover-coordinate mirroring, the three-second threshold, initial transparency, localized fog, clearing by strokes, droplet release, pause, scene switching, PNG/JPG export, local tracking initialization, camera shutdown and narrow-screen layout. Browser tests use synthetic camera input; they do not access the user's actual camera. The designer has confirmed the four core real-camera actions in a hands-on check. Quantitative latency, other people, low light and other browsers have not been validated. In low light or during occlusion, use mouse/touch or improve illumination.
 
-The app is buildless. This repository contains its source and assets; a playable hosted website requires a separate deployment of `dist`. Camera permission may be unavailable inside some embedded previews; open the local URL directly in Chrome in that case.
+The app is buildless. This repository contains its source and assets. GitHub Pages publishes only `dist` through `.github/workflows/pages.yml`; pushing changes to `dist` on `main` redeploys the website. Camera permission may be unavailable inside some embedded previews; open the website directly in Chrome in that case.
 
 ## Project guide / 文件导航
 
