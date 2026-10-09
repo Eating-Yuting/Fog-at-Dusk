@@ -1,6 +1,6 @@
 # Process and AI assistance · 设计过程与工具说明
 
-Design direction: Lily-eating. Implementation support: OpenAI Codex. This account records decisions from the project conversation and local implementation; it is not a claim that all code was written independently by the designer.
+Design direction: Eating-Yuting. Implementation support: OpenAI Codex. This account records decisions from the project conversation and local implementation; it is not a claim that all code was written independently by the designer.
 
 ## Concept and direction
 
@@ -26,4 +26,4 @@ Automated checks cover the interaction rules and export/storage behaviour. On 20
 
 Future evaluation should compare usability under varied lighting and with other people. Mouth opening remains a proxy for breath; the project makes no measured wellbeing claim. The designer confirmed that the teacher’s open-ended message is the current assignment brief. This project follows that brief; no additional marking criteria, tools or documentation requirements are invented.
 
-中文摘要：构想、审美和修改方向由Lily-eating提出，代码与检查由 Codex 辅助；真人四项功能测试已由Lily-eating确认。没有伪造测试数据或开发历史。
+中文摘要：构想、审美和修改方向由Eating-Yuting提出，代码与检查由 Codex 辅助；真人四项功能测试已由Eating-Yuting确认。没有伪造测试数据或开发历史。

@@ -29,4 +29,4 @@ Earlier synthetic garden-scene sampling recorded 16.7 ms median and 16.8 ms 95th
 
 These are suggested quality checks, not claimed course requirements: try a second person; front light versus dim light; hand briefly leaving the frame; camera permission denied; and repeated camera start/stop. Do not mark them passed without testing. Test images shipped in `images/` use public-domain paintings and synthetic marks, not private camera imagery.
 
-中文：真人四项通过来自Lily-eating反馈；自动检查另有记录。弱光、其他人及不同浏览器未做全面验证。
+中文：真人四项通过来自Eating-Yuting反馈；自动检查另有记录。弱光、其他人及不同浏览器未做全面验证。
