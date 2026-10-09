@@ -1,6 +1,6 @@
 # Fog at Dusk · 傍晚的大雾天
 
-A browser-based glass experience: an initially clear view, localized breath mist, fingertip traces and slowly falling droplets. Designed by 糯糯 with AI implementation assistance. Prepared for SD5913 Assignment 3. The project follows the teacher’s current brief: code that handles human interaction, presented as a web application and submitted as a repository.
+A browser-based glass experience: an initially clear view, localized breath mist, fingertip traces and slowly falling droplets. Designed by Lily-eating with AI implementation assistance. Prepared for SD5913 Assignment 3. The project follows the teacher’s current brief: code that handles human interaction, presented as a web application and submitted as a repository.
 
 ![Fog at Dusk: local mist and fingertip traces](images/experience.png)
 
