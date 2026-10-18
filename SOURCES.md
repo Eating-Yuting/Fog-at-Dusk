@@ -1,6 +1,6 @@
 # Sources and third-party notices · 素材来源
 
-Checked: 2026-10-09. Asset integrity hashes are recorded in `ASSET-MANIFEST.json`. The third-party JavaScript, WASM, model weights and museum images are bundled locally and are not fetched during normal use.
+Checked: 2026-10-18. Asset integrity hashes are recorded in `ASSET-MANIFEST.json`. The third-party JavaScript, WASM, model weights and museum images are bundled locally and are not fetched during normal use.
 
 ## Paintings
 
@@ -16,6 +16,12 @@ Original image download endpoints:
 - https://api.nga.gov/iiif/0b9cefb5-1ee4-401a-8154-8d4039191a28/full/1600,/0/default.jpg
 - https://api.nga.gov/iiif/5f0f2f71-1428-4fc7-a951-0fab4fe39ffd/full/1600,/0/default.jpg
 
+## City background
+
+| Local file | Image | Source and rights |
+|---|---|---|
+| dist/assets/hong-kong-dusk.png | Hong Kong harbour at dusk | GPT-generated image supplied by the designer; the darker, warmer version in this project was also made with GPT image editing. No third-party source is indicated; this asset is not labelled CC0. |
+
 ## Tracking software and models
 
 | Asset | Upstream version/source | Licence evidence |
@@ -30,6 +36,14 @@ Model download endpoints:
 - https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task
 
 The original upstream licence text is preserved verbatim, including its own standard appendix and additional notices. Its template fields are part of that licence, not unfinished coursework. This notice does not apply a new licence to the designer’s original work.
+
+## Music
+
+| Local file | Track | Source and licence |
+|---|---|---|
+| `dist/assets/forget-me-not-loop.ogg` | *Forget Me Not* by Kistol; looped OGG version | OpenGameArt; marked CC0, attribution optional [11] |
+
+The track is bundled locally and plays only when the user turns it on. The author and source are recorded here even though CC0 does not require attribution.
 
 ## Other visual material and tools
 
@@ -60,3 +74,5 @@ Playwright is used only for developer checks; its version is pinned in `package.
 [9] GOOGLE. Model Card: Blendshape V2[EB/OL]. [2026-10-09]. https://storage.googleapis.com/mediapipe-assets/Model%20Card%20Blendshape%20V2.pdf
 
 [10] GOOGLE. Model Card: Hand Tracking (Lite/Full) with Fairness[EB/OL]. [2026-10-09]. https://storage.googleapis.com/mediapipe-assets/Model%20Card%20Hand%20Tracking%20%28Lite_Full%29%20with%20Fairness%20Oct%202021.pdf
+
+[11] KISTOL. Forget Me Not[EB/OL]. [2026-10-18]. https://opengameart.org/content/forget-me-not

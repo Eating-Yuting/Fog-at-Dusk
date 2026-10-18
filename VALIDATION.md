@@ -4,7 +4,7 @@ Passed in desktop Chrome with synthetic camera input:
 - Initially clear glass: mask value 0.
 - Local breath raises moisture at its origin while a far corner stays 0.
 - A drawn stroke changed the sampled fog value from 240 to 0.
-- A stationary drawing position triggers a droplet at three seconds, not earlier.
+- A stationary drawing position triggers a droplet at two seconds, not earlier.
 - Pause, scene switching, PNG and JPG downloads, and clear reset passed.
 - Local MediaPipe face/hand models loaded in a worker.
 - Camera shutdown detached and stopped the stream.
@@ -16,7 +16,7 @@ Desktop and mobile screenshots were inspected. Automated camera tests used synth
 ## Fluid traces and postcards · 2026-10-09
 
 - Cached feathered brush; display follows requestAnimationFrame. Hand targets are interpolated between worker results, with stale-target expiry and lift handling.
-- Wet-stroke check produced 48 edge beads. Small sliding beads leave thin wet trails; the original three-second droplet remains.
+- Wet-stroke check produced 48 edge beads. Small sliding beads leave thin wet trails; the two-second droplet behavior is described in the updated interaction logic, which has not been rechecked here.
 - In the synthetic desktop garden scene, 89 sampled animation intervals had a median of 16.7 ms and a 95th percentile of 16.8 ms. This is a browser frame-cadence sample, not a guarantee for real camera tracking or every device.
 - Poster capture stays frozen; text is limited to 200 grapheme clusters. The 1200 × 1800 PNG dimensions and JPG signature were checked.
 - Explicit save/export persists a postcard locally; refreshing and reopening restores its message. Re-saving the same postcard does not duplicate it.

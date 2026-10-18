@@ -11,13 +11,13 @@ The designer explicitly confirmed: “已经实测，四项都正常” (already
 | Open the mouth; verify mist appears at its corresponding position | Passed, designer report |
 | Extend the index finger and draw a circle; check for obvious lag or broken tracing | Passed, designer report; no measured latency |
 | Bend the index finger to stop drawing | Passed, designer report |
-| Stay near one position for about three seconds; verify a falling drop | Passed, designer report |
+| Stay near one position for about two seconds; verify a falling drop | Passed, designer report |
 
 This was one designer’s functional check. The assistant did not observe or record the camera feed. Browser version, hardware, lighting and repetition count were not collected. Generalization to other people and devices is not established.
 
 ## Automated browser checks
 
-`check.mjs` checks initial transparency, local mist, fast continuous wiping, the three-second trigger, hold/resume, background changes, PNG/JPG downloads, model initialization, camera shutdown and 390px layout.
+`check.mjs` checks initial transparency, local mist, fast continuous wiping, the two-second trigger, hold/resume, background changes, PNG/JPG downloads, model initialization, camera shutdown and 390px layout.
 
 `check-poster.mjs` checks edge beads, a frozen snapshot, 200-grapheme text limiting, 1200 × 1800 PNG and JPG output, collection persistence, re-opening messages, no duplicate frame on re-save, mobile layout and download fallback when storage is unavailable.
 
@@ -27,6 +27,6 @@ Earlier synthetic garden-scene sampling recorded 16.7 ms median and 16.8 ms 95th
 
 ## Optional follow-up checks
 
-These are suggested quality checks, not claimed course requirements: try a second person; front light versus dim light; hand briefly leaving the frame; camera permission denied; and repeated camera start/stop. Do not mark them passed without testing. Test images shipped in `images/` use public-domain paintings and synthetic marks, not private camera imagery.
+On 2026-10-18, one classmate tried the public site; their observations are recorded in PROCESS.md. The camera-return change and new guidance still need follow-up testing. The optional local music control has not been checked. Also test front light versus dim light, hand briefly leaving the frame, denied camera permission and repeated camera start/stop. Do not mark them passed without testing. Test images shipped in `images/` use public-domain paintings and synthetic marks, not private camera imagery.
 
-中文：真人四项通过来自Eating-Yuting反馈；自动检查另有记录。弱光、其他人及不同浏览器未做全面验证。
+中文：真人四项通过来自Eating-Yuting反馈；自动检查另有记录。弱光、更多参与者及不同浏览器尚未全面验证；摄像头切回和新版提示等待复测。

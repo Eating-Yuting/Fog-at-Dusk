@@ -5,7 +5,7 @@ const require=createRequire(import.meta.url);
 const {chromium}=require('playwright');
 assert.deepEqual(coverPoint(.5,.5,1280,720,800,600),{x:.5,y:.5});
 assert(coverPoint(.2,.5,1280,720,800,600).x>.5);
-let dwell=advanceDwell(null,{x:.5,y:.5},0);assert(!advanceDwell(dwell,{x:.5,y:.5},2999).drop);dwell=advanceDwell(dwell,{x:.5,y:.5},3000);assert(dwell.drop);assert(!advanceDwell(dwell,{x:.5,y:.5},4000).drop);assert.equal(advanceDwell(dwell,{x:.7,y:.5},4001).progress,0);
+let dwell=advanceDwell(null,{x:.5,y:.5},0);assert(!advanceDwell(dwell,{x:.5,y:.5},1999).drop);dwell=advanceDwell(dwell,{x:.5,y:.5},2000);assert(dwell.drop);assert(!advanceDwell(dwell,{x:.5,y:.5},3000).drop);assert.equal(advanceDwell(dwell,{x:.7,y:.5},3001).progress,0);
 const browser=await chromium.launch({channel:'chrome',headless:true,args:['--use-fake-ui-for-media-stream','--use-fake-device-for-media-stream','--autoplay-policy=no-user-gesture-required']});
 const page=await browser.newPage({viewport:{width:1440,height:1100},acceptDownloads:true});page.setDefaultTimeout(20000);const errors=[],external=[];page.on('console',m=>{if(m.type()==='error')console.log('Browser:',m.text())});page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>{if(!r.url().startsWith((process.env.TEST_URL||'http://127.0.0.1:8769'))&&!r.url().startsWith('blob:'))external.push(r.url())});
 await page.goto((process.env.TEST_URL||'http://127.0.0.1:8769'));await page.waitForTimeout(1500);await page.screenshot({path:'preview-desktop.png',fullPage:true});await page.click('#dismiss');

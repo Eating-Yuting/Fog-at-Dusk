@@ -8,9 +8,9 @@ A browser-based glass experience: an initially clear view, localized breath mist
 
 **[Open Fog at Dusk →](https://eating-yuting.github.io/Fog-at-Dusk/)**
 
-Use a recent desktop Chrome, press **Enable camera**, and allow camera access. The first visit downloads the bundled tracking models; give them time to load. You can also use the mouse without a camera. No installation or API key is needed.
+Use a recent desktop Chrome, press **Enable camera**, and allow camera access. The first camera start loads bundled tracking models and may take a moment. Wait for “Face found · Hand found”; if the cursor ring is missing, keep your face and hand in frame and step back slightly. Switching to another background pauses landmark inference; returning to the live camera resumes it. You can also use the mouse without a camera. No installation or API key is needed.
 
-Camera processing stays in your browser. Postcards are saved in this browser on this website; collections from a localhost address do not transfer automatically. Download PNG/JPG copies to keep them elsewhere.
+Camera processing stays in your browser. Optional background music is bundled locally and plays only after you turn it on. Postcards are saved in this browser on this website; collections from a localhost address do not transfer automatically. Download PNG/JPG copies to keep them elsewhere.
 
 中文：点击上方链接即可试玩；建议使用电脑 Chrome，允许摄像头后张嘴起雾、伸食指擦写。首次需等待模型加载，也可用鼠标。在线与本地收藏分开保存。
 
@@ -29,23 +29,23 @@ Open http://127.0.0.1:8769 in a recent desktop Chrome. Use localhost or HTTPS fo
 ## Experience / 体验
 
 - **Start clear.** The garden preview stays clear until you add mist. Enabling the camera replaces the background with a mirrored live image.
-- **Breathe.** Open your mouth: mist appears near the corresponding mouth position. Close it to stop adding mist. A sensitivity control adjusts the opening threshold. Alternatively, hold Breathe, or hover over the glass and hold Space.
-- **Trace.** Extend an index finger and move it in view. Bend it or move the hand out of view to lift. Mouse dragging and touch also draw directly from the user's trajectory. A cached feathered brush preserves the hand-drawn path, with small beads along damp edges and thin trickles. No handwriting recognition, automatic lettering or generated strokes are used.
-- **Stay.** Hold a drawing position within a small tolerance for three seconds. One droplet forms and slides down; move to another position to repeat.
-- **Keep.** Freeze the composition, select the live camera, a solid colour or one of two Monet paintings, then export the rendered glass to PNG or JPG. UI controls are excluded. The exported dimensions match the drawing surface, capped for browser performance; this is not a print-resolution exporter.
-- **Make a poster.** Freeze the current glass into a warm-paper portrait layout, add a message up to 200 visible characters (emoji clusters count as one), and export a 1200 × 1800 PNG/JPG. The captured glass is fitted without cropping; adding pixels does not add camera detail. If there are too many manual line breaks to fit, the poster flows them into paragraphs.
+- **Breathe.** Open your mouth: mist appears near the corresponding mouth position. Close it to stop adding mist. A sensitivity control adjusts the opening threshold. Alternatively, hold the mist button, or hover over the glass and hold Space.
+- **Trace.** Extend an index finger and move it in view. Keep your face and hand in frame; step back slightly if the cursor ring is missing. The Fine trace width is the starting setting. Bend the finger or move the hand out of view to lift. Mouse dragging and touch also draw directly from the user's trajectory. A cached feathered brush preserves the hand-drawn path, with small beads along damp edges and thin trickles. No handwriting recognition, automatic lettering or generated strokes are used.
+- **Stay.** Hold a drawing position within a small tolerance for two seconds. One droplet forms and slides down; move to another position to repeat. Optional music is off until you press Soft music.
+- **Keep.** Freeze the composition, select the live camera, a solid colour, either Monet painting or the GPT-generated Hong Kong harbour scene, then export the rendered glass to PNG or JPG. A warm solid colour makes mist and water trails easier to see than a detailed painting. UI controls are excluded. The exported dimensions match the drawing surface, capped for browser performance; this is not a print-resolution exporter.
+- **Make a poster.** Choose a background, hold the moment, then choose Make a poster. Add a message up to 200 visible characters (emoji clusters count as one), then keep the postcard in the film collection or export a 1200 × 1800 PNG/JPG. The captured glass is fitted without cropping; adding pixels does not add camera detail. If there are too many manual line breaks to fit, the poster flows them into paragraphs.
 - **Film collection.** Keep or export explicitly to store the postcard in this browser's IndexedDB. Reopen a film frame to edit or download it. Re-saving the same postcard updates it. Clearing site data, switching browser/profile, or changing localhost port will affect access; download copies for durable storage. This is an in-app collection, not an automatically created operating-system folder.
 - **Clear.** Clear glass removes all mist, marks and droplets. Let mist fade controls slow natural dissipation.
 
-中文：清晰玻璃开始；张嘴在嘴部镜像位置起雾；伸食指擦写、弯曲抬笔；同处停留三秒滴水；可定格、换背景并保存。不开镜头也能用鼠标或触屏。
+中文：清晰玻璃开始；张嘴在嘴部镜像位置起雾；伸食指擦写、弯曲抬笔；同处停留两秒滴水；轻柔音乐需手动开启；可定格、换背景并保存。不开镜头也能用鼠标或触屏。
 
 ## User direction and implementation choices
 
-**User direction:** a calming experience, mouth- and fingertip-tracked interaction, handmade marks, three-second droplets, camera / solid / Monet backgrounds, local PNG/JPG output, frosted controls, English primary with smaller Chinese descriptions, and warm streetlamp colours. The user clarified that the initial glass must be clear and mist must appear only locally.
+**User direction:** a calming experience, mouth- and fingertip-tracked interaction, handmade marks, two-second droplets, optional music, camera / solid / Monet / GPT-generated Hong Kong harbour backgrounds, local PNG/JPG output, frosted controls, English primary with smaller Chinese descriptions, and warm streetlamp colours. The user clarified that the initial glass must be clear and mist must appear only locally.
 
 **Implementation choices:** MediaPipe Face and Hand Landmarker, entirely on the device; a WebGL glass renderer driven by a 2D moisture mask; index extension as a virtual contact gesture; camera and landmark positions share the same mirrored cover transform; worker inference avoids blocking drawing. The display follows requestAnimationFrame rather than a fixed 30 Hz cap; hand inference is requested at up to 20 Hz when the worker is free, with a short time-based interpolation between results. Brief tracking loss lifts the drawing point; stale targets expire after 250 ms. Actual rates depend on the device. The scene uses a restrained amber light tint and frosted controls. Monet is a preview until camera permission is granted.
 
-**Not yet established:** relief or stress reduction is a design intention, not a measured clinical or user-study result. On 2026-10-09, the designer reported that four real-camera tasks worked normally: localized mouth mist, tracing a circle, bending the finger to stop, and holding to release a droplet. This is a single-person functional check, not a measured usability study. This prototype uses mouth opening as a proxy; a normal camera does not measure real exhalation, humidity, temperature, or physical finger-to-screen contact. Three seconds is a designed feedback threshold.
+**Not yet established:** relief or stress reduction is a design intention, not a measured clinical or user-study result. On 2026-10-09, the designer reported that four real-camera tasks worked normally: localized mouth mist, tracing a circle, bending the finger to stop, and holding to release a droplet. This is a single-person functional check, not a measured usability study. This prototype uses mouth opening as a proxy; a normal camera does not measure real exhalation, humidity, temperature, or physical finger-to-screen contact. Two seconds is a designed feedback threshold.
 
 ## Privacy and lifecycle
 
@@ -66,9 +66,9 @@ Both artwork pages explicitly describe their media as public domain [4–5]. Loc
 
 ## Checks and remaining limits
 
-`check-poster.mjs` additionally checks wet-edge beads, poster freezing, the 200-character limit, downloads, collection persistence and mobile layout. `check.mjs` contains checks for cover-coordinate mirroring, the three-second threshold, initial transparency, localized fog, clearing by strokes, droplet release, pause, scene switching, PNG/JPG export, local tracking initialization, camera shutdown and narrow-screen layout. Browser tests use synthetic camera input; they do not access the user's actual camera. The designer has confirmed the four core real-camera actions in a hands-on check. Quantitative latency, other people, low light and other browsers have not been validated. In low light or during occlusion, use mouse/touch or improve illumination.
+`check-poster.mjs` additionally checks wet-edge beads, poster freezing, the 200-character limit, downloads, collection persistence and mobile layout. `check.mjs` contains checks for cover-coordinate mirroring, the two-second threshold, initial transparency, localized fog, clearing by strokes, droplet release, pause, scene switching, PNG/JPG export, local tracking initialization, camera shutdown and narrow-screen layout. Browser tests use synthetic camera input; they do not access the user's actual camera. The designer and one anonymized classmate have each reported hands-on camera use; the second classmate’s observations and first design response are recorded in PROCESS.md. The updated camera-return behavior and new framing guidance still need a follow-up trial. Quantitative latency, other people beyond this one classmate, low light and other browsers have not been comprehensively validated. In low light or during occlusion, use mouse/touch or improve illumination.
 
-The app is buildless. This repository contains its source and assets. GitHub Pages publishes only `dist` through `.github/workflows/pages.yml`; pushing changes to `dist` on `main` redeploys the website. Camera permission may be unavailable inside some embedded previews; open the website directly in Chrome in that case.
+The app is buildless. This repository contains its source and assets. GitHub Pages publishes only `dist` through `.github/workflows/pages.yml`; pushing changes to `dist` on `main` redeploys the website. Camera permission may be unavailable inside some embedded previews; open the website directly in Chrome in that case. If tracking models cannot load, mouse/keyboard interaction remains available to experience mist, wiping and the droplet response.
 
 ## Project guide / 文件导航
 

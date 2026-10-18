@@ -6,6 +6,6 @@ export function mouthRatio(points){const a=points[13],b=points[14],l=points[61],
 export function indexExtended(points){const d=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);return d(points[8],points[0])>d(points[6],points[0])*1.1}
 export function advanceDwell(state,p,time,radius=.016){
  if(!state||Math.hypot(state.x-p.x,state.y-p.y)>radius) return {x:p.x,y:p.y,start:time,fired:false,progress:0,drop:false};
- const progress=Math.min(1,(time-state.start)/3000),drop=progress===1&&!state.fired;
+ const progress=Math.min(1,(time-state.start)/2000),drop=progress===1&&!state.fired;
  return {...state,progress,fired:state.fired||drop,drop};
 }

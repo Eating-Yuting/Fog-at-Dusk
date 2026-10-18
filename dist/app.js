@@ -3,7 +3,7 @@ import {coverPoint,mouthRatio,indexExtended,advanceDwell} from './interaction.js
 const $=id=>document.getElementById(id),canvas=$('glass'),wrap=$('glass-wrap'),video=$('video');
 const water=$('water'),wc=water.getContext('2d'),mask=document.createElement('canvas'),mc=mask.getContext('2d',{willReadFrequently:true}),source=document.createElement('canvas'),sc=source.getContext('2d');
 const gl=canvas.getContext('webgl',{alpha:false,preserveDrawingBuffer:true,antialias:false});
-const state={handTarget:null,beads:[],bg:'monet',color:'#a99375',fog:.72,brush:22,paused:false,evaporate:true,breathing:false,camera:false,starting:false,hand:null,mouth:null,pointer:null,lastPoint:null,dwell:null,drops:[],marks:0,lastTick:0,workerBusy:false,workerReady:false,lastInference:0,session:0};
+const state={handTarget:null,beads:[],bg:'monet',color:'#a99375',fog:.72,brush:12,paused:false,evaporate:true,breathing:false,camera:false,starting:false,hand:null,mouth:null,pointer:null,lastPoint:null,dwell:null,drops:[],marks:0,lastTick:0,workerBusy:false,workerReady:false,lastInference:0,session:0};
 let worker,stream,toastTimer,lastWetPoint=null,handSeenAt=0,w=1000,h=700,maskDirty=true,sourceDirty=true,initialized=false;
 const images={};
 function toast(text){$('toast').textContent=text;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('show'),5000)}
@@ -93,9 +93,9 @@ function waterBead(x,y,r,stretch,alpha){
  wc.save();wc.globalAlpha=alpha;wc.translate(x,y);
  wc.fillStyle='rgba(77,58,35,.16)';wc.beginPath();wc.ellipse(.4,r*.25,r,r*stretch,0,0,Math.PI*2);wc.fill();
  const g=wc.createRadialGradient(-r*.28,-r*.4,0,0,0,r*1.5);
- g.addColorStop(0,'rgba(255,251,226,.88)');g.addColorStop(.3,'rgba(251,227,185,.09)');g.addColorStop(.7,'rgba(98,73,44,.12)');g.addColorStop(1,'rgba(255,242,208,.5)');
+ g.addColorStop(0,'rgba(255,251,226,.66)');g.addColorStop(.3,'rgba(251,227,185,.06)');g.addColorStop(.7,'rgba(98,73,44,.12)');g.addColorStop(1,'rgba(255,242,208,.5)');
  wc.fillStyle=g;wc.beginPath();wc.ellipse(0,0,r,r*stretch,0,0,Math.PI*2);wc.fill();
- wc.strokeStyle='rgba(255,248,224,.7)';wc.lineWidth=Math.max(.55,r*.14);wc.beginPath();wc.ellipse(-r*.08,-r*.08,r*.76,r*stretch*.78,0,Math.PI,Math.PI*1.65);wc.stroke();wc.restore();
+ wc.strokeStyle='rgba(255,248,224,.48)';wc.lineWidth=Math.max(.55,r*.14);wc.beginPath();wc.ellipse(-r*.08,-r*.08,r*.76,r*stretch*.78,0,Math.PI,Math.PI*1.65);wc.stroke();wc.restore();
 }
 function drawWater(dt){
  wc.clearRect(0,0,w,h);
@@ -109,7 +109,7 @@ function drawWater(dt){
   }
   const alpha=tiny?Math.min(1,(d.life-d.age)/2500):1;
   if(d.trail.length>1){wc.save();wc.globalAlpha=Math.max(0,alpha)*.52;wc.lineCap='round';wc.strokeStyle='#fff0cd';wc.lineWidth=tiny ? .65 : 1.1;wc.beginPath();d.trail.forEach((p,i)=>i?wc.lineTo(p.x*w-r*.25,p.y*h):wc.moveTo(p.x*w-r*.25,p.y*h));wc.lineTo(d.x*w-r*.25,d.y*h);wc.stroke();wc.restore()}
-  waterBead(d.x*w,d.y*h,r,tiny?1.15:1.45,Math.max(0,alpha));
+  waterBead(d.x*w,d.y*h,r,tiny?1.05:1.75,Math.max(0,alpha));
  }
  state.drops=state.drops.filter(d=>d.y<1.08);state.beads=state.beads.filter(d=>d.age<d.life&&d.y<1.05);
 }
@@ -118,12 +118,12 @@ function animate(time){requestAnimationFrame(animate);if(document.hidden)return;
  if(!state.paused){
   if(state.handTarget&&time-handSeenAt<250){const t=state.handTarget,old=state.hand||t;const speed=Math.hypot(t.x-old.x,t.y-old.y);const blend=1-Math.exp(-dt/(speed>.04?32:55));state.hand={x:old.x+(t.x-old.x)*blend,y:old.y+(t.y-old.y)*blend}}else{state.hand=null;state.handTarget=null}
   const point=state.pointer?.down?state.pointer:state.hand;
-  if(point){drawing(point,time);$('action-label').textContent=state.dwell?.progress>.1?'STAY A LITTLE · '+Math.min(3,Math.floor(state.dwell.progress*3))+' / 3':'FOLLOW YOUR FINGERTIP'}else{state.lastPoint=null;lastWetPoint=null;state.dwell=null;$('cursor').hidden=true;$('action-label').textContent='DRAG TO REVEAL'}
+  if(point){drawing(point,time);$('action-label').textContent=state.dwell?.progress>.1?'STAY A LITTLE · '+Math.min(2,Math.floor(state.dwell.progress*2))+' / 2':'FOLLOW YOUR FINGERTIP'}else{state.lastPoint=null;lastWetPoint=null;state.dwell=null;$('cursor').hidden=true;$('action-label').textContent='DRAG TO REVEAL'}
   if(state.breathing||state.mouth?.open){dismiss();breath(state.mouth?.open?state.mouth:(state.pointer||{x:.5,y:.55}),dt);$('action-label').textContent='A BREATH BECOMES MIST'}
   if(state.evaporate){mc.fillStyle=`rgba(0,0,0,${dt*.000018})`;mc.fillRect(0,0,w,h);maskDirty=true}
  }
  drawWater(dt);render();
- if(state.camera&&state.workerReady&&!state.workerBusy&&!state.paused&&time-state.lastInference>50&&video.readyState>=2){
+ if(state.camera&&state.bg==='camera'&&state.workerReady&&!state.workerBusy&&!state.paused&&time-state.lastInference>50&&video.readyState>=2){
   state.workerBusy=true;state.lastInference=time;const token=state.session;
   createImageBitmap(video,{resizeWidth:640,resizeHeight:Math.round(640*video.videoHeight/video.videoWidth)}).then(bitmap=>{if(token!==state.session||!worker){bitmap.close();return}worker.postMessage({type:'frame',bitmap,time},[bitmap])}).catch(()=>{state.workerBusy=false});
  }
@@ -133,7 +133,7 @@ canvas.addEventListener('pointerdown',e=>{if(state.paused){toast('Resume to keep
 canvas.addEventListener('pointermove',e=>{state.pointer={...point(e),down:state.pointer?.down||false};if(state.pointer.down&&!state.paused){for(const sample of (e.getCoalescedEvents?.().length?e.getCoalescedEvents():[e]))drawing(point(sample),performance.now())}});
 function pointerEnd(){lastWetPoint=null;if(state.pointer)state.pointer.down=false;state.lastPoint=null;state.dwell=null}
 canvas.addEventListener('pointerup',pointerEnd);canvas.addEventListener('pointercancel',pointerEnd);canvas.addEventListener('lostpointercapture',pointerEnd);canvas.addEventListener('pointerleave',()=>{if(!state.pointer?.down)state.pointer=null});
-function setBackground(bg){state.bg=bg;sourceDirty=true;document.querySelectorAll('[data-bg]').forEach(b=>{b.classList.toggle('selected',b.dataset.bg===bg);b.setAttribute('aria-pressed',b.dataset.bg===bg)});$('scene-label').textContent={camera:'THIS MOMENT · LIVE',monet:"MONET'S GARDEN",bridge:"MONET'S GARDEN",solid:'A QUIET COLOUR'}[bg];$('art-credit').textContent=bg==='monet'?'CLAUDE MONET · THE JAPANESE FOOTBRIDGE, 1899':bg==='bridge'?'CLAUDE MONET · WATERLOO BRIDGE, GRAY DAY, 1903':bg==='camera'?'CAMERA · PROCESSED ON YOUR DEVICE':'A COLOUR OF YOUR OWN'}
+function setBackground(bg){if(bg!==state.bg){state.hand=null;state.handTarget=null;state.mouth=null;handSeenAt=0;state.lastPoint=null;state.dwell=null}state.bg=bg;sourceDirty=true;if(state.camera&&!state.paused)$('camera-status').textContent=bg==='camera'?'CAMERA ON · ON-DEVICE':'CAMERA ON · TRACKING PAUSED';document.querySelectorAll('[data-bg]').forEach(b=>{b.classList.toggle('selected',b.dataset.bg===bg);b.setAttribute('aria-pressed',b.dataset.bg===bg)});$('scene-label').textContent={camera:'THIS MOMENT · LIVE',monet:"MONET'S GARDEN",bridge:"MONET'S GARDEN",city:"HARBOUR AT DUSK",solid:'A QUIET COLOUR'}[bg];$('art-credit').textContent=bg==='monet'?'CLAUDE MONET · THE JAPANESE FOOTBRIDGE, 1899':bg==='bridge'?'CLAUDE MONET · WATERLOO BRIDGE, GRAY DAY, 1903':bg==='camera'?'CAMERA · PROCESSED ON YOUR DEVICE':bg==='city'?'HONG KONG · AI-EDITED FROM DESIGNER-SUPPLIED IMAGE':'A COLOUR OF YOUR OWN'}
 document.querySelectorAll('[data-bg]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.bg==='camera'&&!state.camera){startCamera();return}setBackground(b.dataset.bg)}));
 function setColor(color){state.color=color;document.querySelector('.scene-solid').style.background=color;document.querySelectorAll('[data-color]').forEach(b=>{b.classList.toggle('selected',b.dataset.color===color);b.setAttribute('aria-pressed',b.dataset.color===color)});setBackground('solid')}
 document.querySelectorAll('[data-color]').forEach(b=>b.addEventListener('click',()=>setColor(b.dataset.color)));$('custom-color').oninput=e=>setColor(e.target.value);
@@ -144,11 +144,12 @@ $('pause').onclick=togglePause;
 $('breathe').addEventListener('pointerdown',e=>{if(state.paused)return;$('breathe').setPointerCapture(e.pointerId);state.breathing=true;dismiss()});for(const event of ['pointerup','pointercancel','lostpointercapture'])$('breathe').addEventListener(event,()=>state.breathing=false);
 window.addEventListener('keydown',e=>{if(e.code==='Space'&&!['INPUT','BUTTON','SELECT','TEXTAREA','SUMMARY'].includes(document.activeElement.tagName)&&!document.querySelector('dialog[open]')){e.preventDefault();if(!state.paused)state.breathing=true}});window.addEventListener('keyup',e=>{if(e.code==='Space')state.breathing=false});window.addEventListener('blur',()=>{state.breathing=false;pointerEnd()});
 $('breathe').addEventListener('click',e=>{if(e.detail===0&&!state.paused){state.breathing=true;setTimeout(()=>state.breathing=false,850)}});
+const ambience=$('ambience'),musicToggle=$('music-toggle');ambience.volume=.2;musicToggle.onclick=async()=>{if(ambience.paused){try{await ambience.play();musicToggle.setAttribute('aria-pressed','true');musicToggle.querySelector('.button-copy').innerHTML='Music on<small>音乐已开启</small>'}catch{toast('Music could not start. Try again. / 音乐没能播放，请再试一次。')}}else{ambience.pause();musicToggle.setAttribute('aria-pressed','false');musicToggle.querySelector('.button-copy').innerHTML='Soft music<small>轻柔音乐 · 已关闭</small>'}};
 $('help').onclick=()=>$('help-dialog').showModal();$('close-help').onclick=()=>$('help-dialog').close();
-function trackingResult(data){state.workerBusy=false;if(state.paused)return;const map=p=>coverPoint(p.x,p.y,video.videoWidth,video.videoHeight,w,h);
+function trackingResult(data){state.workerBusy=false;if(state.paused||state.bg!=='camera')return;const map=p=>coverPoint(p.x,p.y,video.videoWidth,video.videoHeight,w,h);
  if(data.face){const f=data.face,m=map({x:(f[13].x+f[14].x)/2,y:(f[13].y+f[14].y)/2});state.mouth={...m,open:mouthRatio(f)>+$('mouth-threshold').value/100}}else state.mouth=null;
  if(data.hand&&indexExtended(data.hand)){const next=map(data.hand[8]);if(!state.handTarget){state.hand=next;state.lastPoint=null;lastWetPoint=null}state.handTarget=next;handSeenAt=performance.now()}else{state.hand=null;state.handTarget=null;lastWetPoint=null}
- $('tracking-status').textContent=(data.face?'Face found':'Looking for face')+' · '+(data.hand?'Hand found':'Looking for hand')+'. Point to draw; bend to lift. / 伸指擦写，弯曲抬笔。';
+ $('tracking-status').innerHTML=(data.face?'Face found':'Looking for face')+' · '+(data.hand?'Hand found':'Looking for hand')+'. Point to draw; bend to lift.<small>Keep your face and hand in frame; step back slightly if the cursor ring does not appear.</small><small>让脸和手都入镜；没看到圆圈时，试着稍微后退一点。</small>';
 }
 async function startCamera(){if(state.camera||state.starting)return;state.starting=true;const token=++state.session;$('start-camera').disabled=true;$('camera-toggle').disabled=true;$('camera-status').textContent='WAITING FOR CAMERA PERMISSION';
  try{
@@ -156,7 +157,7 @@ async function startCamera(){if(state.camera||state.starting)return;state.starti
   stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:1280},height:{ideal:720}},audio:false});
   if(token!==state.session){stream.getTracks().forEach(t=>t.stop());return}
   video.srcObject=stream;await video.play();state.camera=true;state.starting=false;state.workerReady=false;state.workerBusy=false;document.body.classList.add('camera-on');setBackground('camera');dismiss();$('camera-status').textContent='CAMERA ON · PREPARING TRACKING';$('camera-toggle').innerHTML='<span>◉</span> Turn camera off <span>×</span>';$('camera-toggle').disabled=false;
-  worker=new Worker(new URL('./tracking-worker.js',import.meta.url));worker.onmessage=({data})=>{if(token!==state.session)return;if(data.type==='ready'){state.workerReady=true;$('camera-status').textContent='CAMERA ON · ON-DEVICE';toast('Open your mouth to mist. Point to trace. / 张嘴起雾，伸指擦写。')}else if(data.type==='result')trackingResult(data);else{console.error('Tracking initialization:',data.message);state.workerBusy=false;state.workerReady=false;state.hand=null;state.handTarget=null;state.mouth=null;worker?.terminate();worker=null;toast('Tracking unavailable. The camera view and mouse still work. / 可用鼠标擦写。');$('tracking-status').textContent='Tracking failed. Restart the camera, or use your mouse. / 可重启镜头或用鼠标。'}};
+  worker=new Worker(new URL('./tracking-worker.js',import.meta.url));worker.onmessage=({data})=>{if(token!==state.session)return;if(data.type==='ready'){state.workerReady=true;$('camera-status').textContent='CAMERA ON · ON-DEVICE';toast('Open your mouth to mist. Point to trace. / 张嘴起雾，伸指擦写。')}else if(data.type==='result')trackingResult(data);else{console.error('Tracking initialization:',data.message);state.workerBusy=false;state.workerReady=false;state.hand=null;state.handTarget=null;state.mouth=null;worker?.terminate();worker=null;toast('Tracking unavailable. The camera view and mouse still work. / 可用鼠标擦写。');$('camera-status').textContent='TRACKING UNAVAILABLE · MOUSE / TOUCH';$('tracking-status').textContent='Tracking failed. Restart the camera, or use your mouse. / 可重启镜头或用鼠标。'}};
   worker.onerror=()=>{state.workerBusy=false;state.workerReady=false;state.hand=null;state.handTarget=null;state.mouth=null;worker?.terminate();worker=null;toast('Tracking unavailable. You can still use your mouse. / 可用鼠标擦写。')};worker.postMessage({type:'init'});
   stream.getVideoTracks()[0].onended=()=>stopCamera();
  }catch(e){stopCamera();toast(e.name==='NotAllowedError'?'Camera permission declined. Try mouse or touch. / 可用鼠标或触屏。':e.name==='NotFoundError'?'No camera found. Try mouse or touch. / 未找到镜头，可用鼠标。':'镜头开启失败：'+e.message)}finally{state.starting=false;$('start-camera').disabled=false;$('camera-toggle').disabled=false}
@@ -167,7 +168,7 @@ function captureGlass(){render();const out=document.createElement('canvas');out.
 initPoster({capture:captureGlass,hold:()=>{if(!state.paused)togglePause()}});
 $('save').onclick=()=>{const out=captureGlass();const format=$('format').value;out.toBlob(blob=>{if(!blob){toast('Could not save. Please try again. / 保存失败，请重试。');return}const a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download='breath-'+new Date().toISOString().replace(/[:.]/g,'-')+'.'+(format==='jpeg'?'jpg':'png');a.click();setTimeout(()=>URL.revokeObjectURL(url),10000);toast('Saved to your downloads. / 画面已保存到下载文件夹。')},'image/'+format,.94)};
 canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();stopCamera();toast('图形处理暂时中断，请刷新页面重新体验。')});
-for(const [key,path] of [['monet','monet-water-lilies.jpg'],['bridge','monet-bridge.jpg']]){const img=new Image();img.onload=()=>{images[key]=img;if(state.bg===key)sourceDirty=true};img.onerror=()=>toast('Artwork unavailable. Try a quiet colour. / 可先选择纯色背景。');img.src='./assets/'+path}
+for(const [key,path] of [['monet','monet-water-lilies.jpg'],['bridge','monet-bridge.jpg'],['city','hong-kong-dusk.png']]){const img=new Image();img.onload=()=>{images[key]=img;if(state.bg===key)sourceDirty=true};img.onerror=()=>toast('Artwork unavailable. Try a quiet colour. / 可先选择纯色背景。');img.src='./assets/'+path}
 resize();new ResizeObserver(resize).observe(wrap);requestAnimationFrame(animate);
 // Read-only inspection supports deterministic local checks without capturing camera imagery.
 window.breathGlass={state,sampleFog:(x,y)=>mc.getImageData(Math.round(x*(w-1)),Math.round(y*(h-1)),1,1).data[0],snapshot:()=>({width:w,height:h,background:state.bg,drops:state.drops.length,camera:state.camera,tracking:state.workerReady,paused:state.paused})};

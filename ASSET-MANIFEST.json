@@ -6,8 +6,18 @@
   },
   {
     "path": "dist/assets/artworks.json",
-    "bytes": 531,
-    "sha256": "ed87a62117223296e321634e17d5c5bc55ac3efd25dfed26c47d746fec1cc06e"
+    "bytes": 812,
+    "sha256": "d1fdbd2ab392ab6ecbc970e7ef3c0dd6500ab20d970c38437625b0b357bf5225"
+  },
+  {
+    "path": "dist/assets/forget-me-not-loop.ogg",
+    "bytes": 3341384,
+    "sha256": "2b9b9fc512c34d52b999ed1fd7e01f960f830f3defc5d2241f6e02f8be81ef77"
+  },
+  {
+    "path": "dist/assets/hong-kong-dusk.png",
+    "bytes": 2406372,
+    "sha256": "7d539e6611fe03197e76db2cd9c5827d06d544e8ed78ca1eef13251775c3b13c"
   },
   {
     "path": "dist/assets/mediapipe-package.json",
