@@ -9,7 +9,7 @@ Checked against the teacher-provided Canvas brief on 2026-10-18. **The core expe
 | Interaction and design | 5 | Clear input → response → feedback: mouth/hand or mouse input changes the glass and shows status/cursor/drop feedback. |
 | Working implementation | 4 | Public browser project, bundled assets, run instructions and fallback inputs are present. Follow fresh-terminal instructions and test camera denial before submission. |
 | Usability and iteration | 3 | A classmate tried the experience; anonymous observations and a first design response are recorded in PROCESS.md. Re-test the camera return after background switching and confirm the clearer guidance. |
-| Process and communication | 3 | README, PROCESS, credits and actual history are present. Add one specific AI suggestion you kept and one you changed or rejected, in the designer’s own words; the current PROCESS identifies AI tools and decisions but does not document a verifiable example pair. |
+| Process and communication | 3 | README, PROCESS, credits and actual history are present. Add one specific AI suggestion you kept and one you changed or rejected, in my own words; the current PROCESS identifies AI tools and decisions but does not document a verifiable example pair. |
 
 The brief calls for a small experience with deliberate input, meaningful response, visible feedback, understandable next steps and sensible handling of an ordinary error or interruption. A static image, uncontrolled video or unchanged tutorial does not meet the brief. A second-person trial should happen before explaining the work; record observations without identifying the participant, then document one response or why the design was kept.
 

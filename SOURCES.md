@@ -20,7 +20,7 @@ Original image download endpoints:
 
 | Local file | Image | Source and rights |
 |---|---|---|
-| dist/assets/hong-kong-dusk.png | Hong Kong harbour at dusk | GPT-generated image supplied by the designer; the darker, warmer version in this project was also made with GPT image editing. No third-party source is indicated; this asset is not labelled CC0. |
+| dist/assets/hong-kong-dusk.png | Hong Kong harbour at dusk | GPT-generated image; I used GPT image editing to make the darker, warmer version in this project. No third-party source is indicated; this asset is not labelled CC0. |
 
 ## Tracking software and models
 
@@ -35,7 +35,7 @@ Model download endpoints:
 - https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task
 - https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task
 
-The original upstream licence text is preserved verbatim, including its own standard appendix and additional notices. Its template fields are part of that licence, not unfinished coursework. This notice does not apply a new licence to the designer’s original work.
+The original upstream licence text is preserved verbatim, including its own standard appendix and additional notices. Its template fields are part of that licence, not unfinished coursework. I have not applied a new licence to my original work.
 
 ## Music
 
@@ -47,7 +47,7 @@ The track is bundled locally and plays only when the user turns it on. The autho
 
 ## Other visual material and tools
 
-Glass, water highlights, paper texture, layout and film perforations are rendered in original project code with AI implementation assistance. System fonts are requested through CSS/canvas; no font files are redistributed. Designer-supplied reference screenshots informed the visual direction but are excluded from the package because their original sources were not established. Images in `images/` are application screenshots using credited museum backgrounds and synthetic marks, not camera portraits or third-party reference screenshots.
+Glass, water highlights, paper texture, layout and film perforations are rendered in original project code with AI implementation assistance. System fonts are requested through CSS/canvas; no font files are redistributed. The reference screenshots I supplied informed the visual direction but are excluded from the package because their original sources were not established. Images in `images/` are application screenshots using credited museum backgrounds and synthetic marks, not camera portraits or third-party reference screenshots.
 
 Playwright is used only for developer checks; its version is pinned in `package.json`. No Playwright binaries, Node modules, private user data, course keys, Stable Diffusion weights or API-generated media are included in this submission package.
 

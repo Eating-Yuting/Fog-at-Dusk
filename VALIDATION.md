@@ -11,7 +11,7 @@ Passed in desktop Chrome with synthetic camera input:
 - A 390px mobile viewport had no horizontal overflow.
 - No uncaught page errors; no external network requests during application testing.
 
-Desktop and mobile screenshots were inspected. Automated camera tests used synthetic input. Separately, the designer confirmed four real-camera actions worked normally on 2026-10-09; see TESTING.md. Varied lighting and multi-person evaluation remain untested. The renderer is an artistic approximation, and no measured stress-reduction claim is made.
+Desktop and mobile screenshots were inspected. Automated camera tests used synthetic input. Separately, I confirmed that four real-camera actions worked normally on 2026-10-09; see TESTING.md. Varied lighting and multi-person evaluation remain untested. The renderer is an artistic approximation, and no measured stress-reduction claim is made.
 
 ## Fluid traces and postcards · 2026-10-09
 
@@ -23,11 +23,11 @@ Desktop and mobile screenshots were inspected. Automated camera tests used synth
 - Simulated unavailable browser storage still permits image download and displays a failure message for the collection.
 - Desktop poster, filmstrip and 390px mobile previews inspected. No uncaught page errors or external requests in the browser checks.
 
-Run `check.mjs` and `check-poster.mjs` with Node and an available Playwright installation. These tests launch an isolated Chrome profile; generated test images contain only public-domain art and synthetic marks. The designer’s four-action real-camera report is recorded separately in TESTING.md; it does not quantify latency or cover other users.
+Run `check.mjs` and `check-poster.mjs` with Node and an available Playwright installation. These tests launch an isolated Chrome profile; generated test images contain only public-domain art and synthetic marks. My four-action real-camera report is recorded separately in TESTING.md; it does not quantify latency or cover other users.
 
 ## Independent submission copy
 
-The prepared repository was served independently using `python3 run.py --port 8771`. Both browser check scripts passed against that server after their local machine paths were replaced by portable Chrome-channel configuration. No page errors or external application requests were observed. The app source and original assets were byte-compared with the designer-tested prototype and match.
+The prepared repository was served independently using `python3 run.py --port 8771`. Both browser check scripts passed against that server after their local machine paths were replaced by portable Chrome-channel configuration. No page errors or external application requests were observed. The app source and original assets were byte-compared with the prototype I tested and match.
 
 Reference-link checking returned 200 for the raw course sources, model downloads, package metadata and technical guides. The museum pages return 403 to the shell checker but were opened and read with the web tool; both explicitly identify their media as public domain. Two model-card URLs initially confused the checker because of literal parentheses; their parentheses were percent-encoded. The complete BlazeFace URL returned 200; the hand-card shell retry had an HTTP/2 transport error, while the complete hand-card PDF had already been opened and read successfully with the web tool.
 

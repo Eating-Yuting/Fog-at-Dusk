@@ -2,18 +2,18 @@
 
 Date: 2026-10-09. Two kinds of evidence are kept separate.
 
-## Real-camera check — designer report
+## My real-camera check
 
-The designer explicitly confirmed: “已经实测，四项都正常” (already tested; all four work normally).
+I confirmed: “已经实测，四项都正常” (I tested all four; they worked normally).
 
 | Task | Reported result |
 |---|---|
-| Open the mouth; verify mist appears at its corresponding position | Passed, designer report |
-| Extend the index finger and draw a circle; check for obvious lag or broken tracing | Passed, designer report; no measured latency |
-| Bend the index finger to stop drawing | Passed, designer report |
-| Stay near one position for about two seconds; verify a falling drop | Passed, designer report |
+| Open the mouth; verify mist appears at its corresponding position | Passed, my report |
+| Extend the index finger and draw a circle; check for obvious lag or broken tracing | Passed, my report; no measured latency |
+| Bend the index finger to stop drawing | Passed, my report |
+| Stay near one position for about two seconds; verify a falling drop | Passed, my report |
 
-This was one designer’s functional check. The assistant did not observe or record the camera feed. Browser version, hardware, lighting and repetition count were not collected. Generalization to other people and devices is not established.
+This was my own functional check. Codex did not observe or record my camera feed. Browser version, hardware, lighting and repetition count were not collected. Generalization to other people and devices is not established.
 
 ## Automated browser checks
 

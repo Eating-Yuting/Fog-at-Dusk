@@ -1,6 +1,6 @@
 # Fog at Dusk · 傍晚的大雾天
 
-A browser-based glass experience: an initially clear view, localized breath mist, fingertip traces and slowly falling droplets. Designed by Eating-Yuting with AI implementation assistance. Prepared for SD5913 Assignment 3. The project follows the teacher’s current brief: code that handles human interaction, presented as a web application and submitted as a repository.
+I designed Fog at Dusk as a browser-based glass experience with localized breath mist, fingertip traces and slowly falling droplets. OpenAI Codex helped me implement it. I made it for SD5913 Assignment 3, whose current brief asks for a web experience that responds to human interaction and is submitted as a repository.
 
 ![Fog at Dusk: local mist and fingertip traces](images/experience.png)
 
@@ -12,7 +12,9 @@ Use a recent desktop Chrome, press **Enable camera**, and allow camera access. T
 
 Camera processing stays in your browser. Optional background music is bundled locally and plays only after you turn it on. Postcards are saved in this browser on this website; collections from a localhost address do not transfer automatically. Download PNG/JPG copies to keep them elsewhere.
 
-中文：点击上方链接即可试玩；建议使用电脑 Chrome，允许摄像头后张嘴起雾、伸食指擦写。首次需等待模型加载，也可用鼠标。在线与本地收藏分开保存。
+Compatibility: The assignment brief does not specify a required device or browser. I recommend recent desktop Chrome with WebGL. Camera access needs HTTPS or localhost and your permission. I have not tested every browser or device; mouse and keyboard work without a camera, and touch input is supported.
+
+中文：作业没有指定设备或浏览器。我建议使用较新的桌面版 Chrome；摄像头需在 HTTPS 或 localhost 下并获准使用。其他浏览器和设备尚未全面测试；不开摄像头也能用鼠标、键盘或触屏。
 
 ## Run locally / 本地打开
 
@@ -45,7 +47,7 @@ Open http://127.0.0.1:8769 in a recent desktop Chrome. Use localhost or HTTPS fo
 
 **Implementation choices:** MediaPipe Face and Hand Landmarker, entirely on the device; a WebGL glass renderer driven by a 2D moisture mask; index extension as a virtual contact gesture; camera and landmark positions share the same mirrored cover transform; worker inference avoids blocking drawing. The display follows requestAnimationFrame rather than a fixed 30 Hz cap; hand inference is requested at up to 20 Hz when the worker is free, with a short time-based interpolation between results. Brief tracking loss lifts the drawing point; stale targets expire after 250 ms. Actual rates depend on the device. The scene uses a restrained amber light tint and frosted controls. Monet is a preview until camera permission is granted.
 
-**Not yet established:** relief or stress reduction is a design intention, not a measured clinical or user-study result. On 2026-10-09, the designer reported that four real-camera tasks worked normally: localized mouth mist, tracing a circle, bending the finger to stop, and holding to release a droplet. This is a single-person functional check, not a measured usability study. This prototype uses mouth opening as a proxy; a normal camera does not measure real exhalation, humidity, temperature, or physical finger-to-screen contact. Two seconds is a designed feedback threshold.
+**Not yet established:** relief or stress reduction is a design intention, not a measured clinical or user-study result. On 2026-10-09, I tested four real-camera actions: localized mouth mist, tracing a circle, bending my finger to stop, and holding to release a droplet. This was my own functional check, not a measured usability study. This prototype uses mouth opening as a proxy; a normal camera does not measure real exhalation, humidity, temperature, or physical finger-to-screen contact. Two seconds is a designed feedback threshold.
 
 ## Privacy and lifecycle
 
@@ -66,7 +68,7 @@ Both artwork pages explicitly describe their media as public domain [4–5]. Loc
 
 ## Checks and remaining limits
 
-`check-poster.mjs` additionally checks wet-edge beads, poster freezing, the 200-character limit, downloads, collection persistence and mobile layout. `check.mjs` contains checks for cover-coordinate mirroring, the two-second threshold, initial transparency, localized fog, clearing by strokes, droplet release, pause, scene switching, PNG/JPG export, local tracking initialization, camera shutdown and narrow-screen layout. Browser tests use synthetic camera input; they do not access the user's actual camera. The designer and one anonymized classmate have each reported hands-on camera use; the second classmate’s observations and first design response are recorded in PROCESS.md. The updated camera-return behavior and new framing guidance still need a follow-up trial. Quantitative latency, other people beyond this one classmate, low light and other browsers have not been comprehensively validated. In low light or during occlusion, use mouse/touch or improve illumination.
+`check-poster.mjs` additionally checks wet-edge beads, poster freezing, the 200-character limit, downloads, collection persistence and mobile layout. `check.mjs` contains checks for cover-coordinate mirroring, the two-second threshold, initial transparency, localized fog, clearing by strokes, droplet release, pause, scene switching, PNG/JPG export, local tracking initialization, camera shutdown and narrow-screen layout. Browser tests use synthetic camera input; they do not access the user's actual camera. I tested the camera myself, and one anonymized classmate also tried it. Their observations and my first response are recorded in PROCESS.md. The camera-return change and updated framing guidance still need a follow-up trial. Quantitative latency, other people beyond this one classmate, low light and other browsers have not been comprehensively validated. In low light or during occlusion, use mouse/touch or improve illumination.
 
 The app is buildless. This repository contains its source and assets. GitHub Pages publishes only `dist` through `.github/workflows/pages.yml`; pushing changes to `dist` on `main` redeploys the website. Camera permission may be unavailable inside some embedded previews; open the website directly in Chrome in that case. If tracking models cannot load, mouse/keyboard interaction remains available to experience mist, wiping and the droplet response.
 
@@ -74,7 +76,7 @@ The app is buildless. This repository contains its source and assets. GitHub Pag
 
 - [INTERACTION.md](INTERACTION.md): the input → response → feedback sequence, demo walkthrough and code map.
 - [PROCESS.md](PROCESS.md): design decisions, iteration and AI assistance disclosure.
-- [TESTING.md](TESTING.md): automatic checks, the designer’s real-camera report, and remaining limits.
+- [TESTING.md](TESTING.md): automatic checks, my real-camera report, and remaining limits.
 - [SOURCES.md](SOURCES.md): artwork, dependencies, model sources and licences.
 - [SUBMISSION-CHECKLIST.md](SUBMISSION-CHECKLIST.md): confirmed requirements and remaining hand-in questions.
 
